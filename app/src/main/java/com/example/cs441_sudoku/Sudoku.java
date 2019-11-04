@@ -1,4 +1,4 @@
-package com.example.cs441_sudoku.ui.puzzle;
+package com.example.cs441_sudoku;
 
 import java.util.ArrayList;
 
