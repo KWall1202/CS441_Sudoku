@@ -16,4 +16,62 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+
+            <fragment
+                android:name="com.example.cs441_sudoku.CellGroupFragment"
+                />
+        </TableRow>
+
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
