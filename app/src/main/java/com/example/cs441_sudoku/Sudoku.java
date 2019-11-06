@@ -2,10 +2,10 @@ package com.example.cs441_sudoku;
 
 public class Sudoku {
     public class Puzzle {
-        private CellGroupFragment[][] cellGroups;
+        private CellGroupView[][] cellGroups;
 
         public Puzzle() {
-            cellGroups = new CellGroupFragment[3][3];
+            cellGroups = new CellGroupView[3][3];
 
         }
 

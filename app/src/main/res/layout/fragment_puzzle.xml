@@ -26,51 +26,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
+            <com.example.cs441_sudoku.CellGroupView
                 />
 
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
-
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
 
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
-
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
 
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
-
-            <fragment
-                android:name="com.example.cs441_sudoku.CellGroupFragment"
-                />
         </TableRow>
 
     </TableLayout>

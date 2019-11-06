@@ -23,6 +23,7 @@ public class PuzzleFragment extends Fragment {
         puzzleViewModel =
                 ViewModelProviders.of(this).get(PuzzleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_puzzle, container, false);
+        inflater.inflate(R.layout.cellgroup_view, null);
         final TextView textView = root.findViewById(R.id.text_puzzle);
         puzzleViewModel.getText().observe(this, new Observer<String>() {
             @Override
