@@ -4,13 +4,21 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-public class CellGroupView extends View {
+public class CellGroupView extends ViewGroup {
     private int[][] values;
 
     public CellGroupView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.cellgroup_view, null);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        for(int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).layout(l, t, r, b);
+        }
     }
 
     public void init() {
