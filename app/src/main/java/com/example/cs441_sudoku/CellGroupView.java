@@ -3,15 +3,24 @@ package com.example.cs441_sudoku;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TableLayout;
 
-public class CellGroupView extends ViewGroup {
+public class CellGroupView extends TableLayout {
     private int[][] values;
 
     public CellGroupView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.cellgroup_view, null);
+        initLayout(context);
+    }
+
+    public CellGroupView(Context context) {
+        super(context);
+        initLayout(context);
+    }
+
+    private void initLayout(Context context) {
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.addView(inflater.inflate(R.layout.cellgroup_view, null));
     }
 
     @Override

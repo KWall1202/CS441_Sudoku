@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="sudokuTheme">
+        <item name="android:textSize">@dimen/sudoku_text_size</item>
+    </style>
 </resources>
