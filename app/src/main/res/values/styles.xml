@@ -10,5 +10,7 @@
 
     <style name="sudokuTheme">
         <item name="android:textSize">@dimen/sudoku_text_size</item>
+        <item name="android:padding">@dimen/textViewRadius</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>
