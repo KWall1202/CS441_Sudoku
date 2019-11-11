@@ -7,6 +7,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+
 public class CellGroupView extends TableLayout {
     private int[][] values;
     private TextView[][] cells;
@@ -93,5 +94,9 @@ public class CellGroupView extends TableLayout {
         }
         // all numbers were found
         return true;
+    }
+
+    public TextView[][] getCells() {
+        return cells;
     }
 }
