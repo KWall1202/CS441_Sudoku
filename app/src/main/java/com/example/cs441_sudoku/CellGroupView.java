@@ -54,7 +54,7 @@ public class CellGroupView extends TableLayout {
         //update();
     }
 
-    private void updateCell(int row, int column, int value) {
+    public void updateCell(int row, int column, int value) {
         values[row][column] = value;
         cells[row][column].setText(Integer.toString(value));
     }

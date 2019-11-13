@@ -12,6 +12,10 @@ public class Sudoku {
             cellGroups = groups;
         }
 
+        public void updateCell(int row, int column, int value) {
+            cellGroups[row / 3][column / 3].updateCell(row % 3, column % 3, value);
+        }
+
         public boolean isSolved() {
             // check 3x3 boxes
             for(int i = 0; i < cellGroups.length; i++) {
