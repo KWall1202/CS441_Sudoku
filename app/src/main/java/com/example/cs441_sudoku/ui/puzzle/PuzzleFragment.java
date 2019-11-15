@@ -44,7 +44,7 @@ public class PuzzleFragment extends Fragment {
         for(int i=0; i < board.getChildCount(); i++) {
             TableRow row = (TableRow)board.getChildAt(i);
             for(int j=0; j < row.getChildCount(); j++) {
-                LinearLayout lay = (LinearLayout)row.getChildAt(i);
+                LinearLayout lay = (LinearLayout)row.getChildAt(j);
                 com.example.cs441_sudoku.CellGroupView cellGroup = (com.example.cs441_sudoku.CellGroupView)lay.getChildAt(0);
                 groups[i][j] = cellGroup;
                 TextView cells[][] = cellGroup.getCells();
@@ -60,7 +60,6 @@ public class PuzzleFragment extends Fragment {
                                 currentCell.setBackgroundColor(Color.YELLOW);
                                 curCellPos[0] = rowInd;
                                 curCellPos[1] = colInd;
-                                System.out.println(rowInd + " " + colInd);
                             }
                         });
                     }

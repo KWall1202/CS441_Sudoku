@@ -3,4 +3,11 @@
     <string name="title_home">Home</string>
     <string name="title_puzzle">Puzzle</string>
     <string name="title_notifications">Notifications</string>
+    <string name="generate">generate</string>
+    <string-array name="puzzle_difficulties">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Random</item>
+    </string-array>
 </resources>

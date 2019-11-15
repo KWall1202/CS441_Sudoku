@@ -4,10 +4,6 @@ public class Sudoku {
     public static class Puzzle {
         private CellGroupView[][] cellGroups;
 
-        public Puzzle() {
-            cellGroups = new CellGroupView[3][3];
-        }
-
         public Puzzle(CellGroupView groups[][] ) {
             cellGroups = groups;
         }
