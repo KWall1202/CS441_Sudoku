@@ -20,7 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cs441_sudoku.R;
+import com.example.cs441_sudoku.Sudoku;
+import com.example.cs441_sudoku.ui.puzzle.PuzzleFragment;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class HomeFragment extends Fragment {
@@ -46,11 +49,22 @@ public class HomeFragment extends Fragment {
         generatorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://sugoku.herokuapp.com/board?difficulty=" + difficultySpinner.toString().toLowerCase();
+                String url = "https://sugoku.herokuapp.com/board?difficulty=" + difficultySpinner.getSelectedItem().toString().toLowerCase();
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        int puzz[][] = new int[9][9];
+                        try {
+                            JSONArray values = response.getJSONArray("board");
+                            for(int i=0; i < values.length(); i++) {
+                                for(int j=0; j < values.getJSONArray(i).length(); j++) {
+                                    puzz[i][j] = values.getJSONArray(i).getInt(j);
+                                }
+                            }
+                        } catch(org.json.JSONException e) {
+                            System.err.println(e.toString());
+                        }
+                        Sudoku.Puzzle.setPuzzle(puzz);
                     }
                 },
                         new Response.ErrorListener() {
@@ -64,4 +78,5 @@ public class HomeFragment extends Fragment {
         });
         return root;
     }
+
 }

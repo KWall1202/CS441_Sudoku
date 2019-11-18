@@ -24,7 +24,6 @@ public class PuzzleFragment extends Fragment {
     private TableLayout board;
     private TextView currentCell;
     private int curCellPos[] = {0, 0};
-    private Sudoku.Puzzle puzzle;
 
     private PuzzleViewModel puzzleViewModel;
 
@@ -66,7 +65,6 @@ public class PuzzleFragment extends Fragment {
                 }
             }
         }
-        puzzle = new com.example.cs441_sudoku.Sudoku.Puzzle(groups);
     }
 
     private void initButtonGrid(View root) {
@@ -83,7 +81,7 @@ public class PuzzleFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         int pos[] = getCurCellPos();
-                        puzzle.updateCell(pos[0], pos[1], ((rowInd * 3) + colInd)+1);
+                        Sudoku.Puzzle.updateCell(pos[0], pos[1], ((rowInd * 3) + colInd)+1);
                     }
                 });
                 newRow.addView(button);
