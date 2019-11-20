@@ -34,6 +34,7 @@ public class PuzzleFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_puzzle, container, false);
         initBoard(root);
         initButtonGrid(root);
+        Sudoku.init();
         return root;
     }
 
@@ -65,6 +66,7 @@ public class PuzzleFragment extends Fragment {
                 }
             }
         }
+        Sudoku.setCellGroups(groups);
     }
 
     private void initButtonGrid(View root) {
@@ -81,7 +83,7 @@ public class PuzzleFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         int pos[] = getCurCellPos();
-                        Sudoku.Puzzle.updateCell(pos[0], pos[1], ((rowInd * 3) + colInd)+1);
+                        Sudoku.updateCell(pos[0], pos[1], ((rowInd * 3) + colInd)+1);
                     }
                 });
                 newRow.addView(button);
@@ -91,7 +93,7 @@ public class PuzzleFragment extends Fragment {
 
     }
 
-    public int[] getCurCellPos() {
+    private int[] getCurCellPos() {
         return curCellPos;
     }
 }

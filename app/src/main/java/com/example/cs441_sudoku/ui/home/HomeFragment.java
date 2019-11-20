@@ -16,9 +16,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cs441_sudoku.R;
 import com.example.cs441_sudoku.Sudoku;
 import com.example.cs441_sudoku.ui.puzzle.PuzzleFragment;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private RequestQueue requestQueue;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,12 +39,20 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
+        requestQueue = Volley.newRequestQueue(getContext());
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
+        initGenerator(root);
+
+        return root;
+    }
+
+    private void initGenerator(View root) {
         final Spinner difficultySpinner = root.findViewById(R.id.difficultySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.puzzle_difficulties, android.R.layout.simple_dropdown_item_1line);
         difficultySpinner.setAdapter(adapter);
@@ -49,22 +60,27 @@ public class HomeFragment extends Fragment {
         generatorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("sending request");
                 String url = "https://sugoku.herokuapp.com/board?difficulty=" + difficultySpinner.getSelectedItem().toString().toLowerCase();
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        int puzz[][] = new int[9][9];
+                        int[][] puzz = new int[9][9];
+                        System.out.println("Got response");
                         try {
                             JSONArray values = response.getJSONArray("board");
+                            System.out.println(response.toString());
                             for(int i=0; i < values.length(); i++) {
-                                for(int j=0; j < values.getJSONArray(i).length(); j++) {
-                                    puzz[i][j] = values.getJSONArray(i).getInt(j);
+                                JSONArray row = values.getJSONArray(i);
+                                for(int j=0; j < row.length(); j++) {
+                                    puzz[i][j] = row.getInt(j);
+                                    System.out.println(puzz[i][j]);
                                 }
                             }
                         } catch(org.json.JSONException e) {
                             System.err.println(e.toString());
                         }
-                        Sudoku.Puzzle.setPuzzle(puzz);
+                        Sudoku.setPuzzle(puzz);
                     }
                 },
                         new Response.ErrorListener() {
@@ -73,10 +89,8 @@ public class HomeFragment extends Fragment {
                                 //TODO: Handle error
                             }
                         });
-                //TODO: handle request
+                requestQueue.add(jsonObjectRequest);
             }
         });
-        return root;
     }
-
 }
