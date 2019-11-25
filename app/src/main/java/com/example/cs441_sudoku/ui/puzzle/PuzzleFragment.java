@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.cs441_sudoku.R;
 import com.example.cs441_sudoku.Sudoku;
 
+import org.w3c.dom.Text;
+
 public class PuzzleFragment extends Fragment {
     private TableLayout board;
     private TextView currentCell;
@@ -34,6 +36,22 @@ public class PuzzleFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_puzzle, container, false);
         initBoard(root);
         initButtonGrid(root);
+        Button checkButton = root.findViewById(R.id.checkSolveButton);
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // CHECK ONCLICK
+            }
+        });
+
+        Button resetButton = root.findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Sudoku.reset();
+            }
+        });
+
         Sudoku.init();
         return root;
     }
@@ -69,7 +87,7 @@ public class PuzzleFragment extends Fragment {
         Sudoku.setCellGroups(groups);
     }
 
-    private void initButtonGrid(View root) {
+    private void initButtonGrid(final View root) {
         TableLayout buttonsTable = root.findViewById(R.id.inputButtonGrid);
         for(int i=0; i<3; i++) {
             TableRow newRow = new TableRow(getContext());
@@ -84,6 +102,9 @@ public class PuzzleFragment extends Fragment {
                     public void onClick(View view) {
                         int pos[] = getCurCellPos();
                         Sudoku.updateCell(pos[0], pos[1], ((rowInd * 3) + colInd)+1);
+                        TextView moveCount = root.findViewById(R.id.moveCount);
+                        int count = Integer.parseInt(moveCount.getText().toString()) + 1;
+                        moveCount.setText(Integer.toString(count));
                     }
                 });
                 newRow.addView(button);

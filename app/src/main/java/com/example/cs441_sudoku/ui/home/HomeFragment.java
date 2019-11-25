@@ -23,7 +23,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cs441_sudoku.R;
 import com.example.cs441_sudoku.Sudoku;
-import com.example.cs441_sudoku.ui.puzzle.PuzzleFragment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -60,9 +59,10 @@ public class HomeFragment extends Fragment {
         generatorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("sending request");
+                System.out.println("sending generate request");
                 String url = "https://sugoku.herokuapp.com/board?difficulty=" + difficultySpinner.getSelectedItem().toString().toLowerCase();
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                JSONArray board = new JSONArray();
+                JsonObjectRequest generateRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         int[][] puzz = new int[9][9];
@@ -81,6 +81,34 @@ public class HomeFragment extends Fragment {
                             System.err.println(e.toString());
                         }
                         Sudoku.setPuzzle(puzz);
+                        System.out.println("sending solve request");
+                        JsonObjectRequest solveRequest = new JsonObjectRequest(Request.Method.POST, "https://sugoku.herokuapp.com/solve", response, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                int [][] sol = new int[9][9];
+                                System.out.println("got solve response");
+                                try {
+                                    JSONArray values = response.getJSONArray("board");
+                                    System.out.println(response.toString());
+                                    for(int i=0; i < values.length(); i++) {
+                                        JSONArray row = values.getJSONArray(i);
+                                        for(int j=0; j < row.length(); j++) {
+                                            sol[i][j] = row.getInt(j);
+                                            System.out.println(sol[i][j]);
+                                        }
+                                    }
+                                } catch(org.json.JSONException e) {
+                                    System.err.println(e.toString());
+                                }
+                                Sudoku.setSolution(sol);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //TODO: Handle error
+                            }
+                        });
+                        requestQueue.add(solveRequest);
                     }
                 },
                         new Response.ErrorListener() {
@@ -89,7 +117,8 @@ public class HomeFragment extends Fragment {
                                 //TODO: Handle error
                             }
                         });
-                requestQueue.add(jsonObjectRequest);
+                requestQueue.add(generateRequest);
+
             }
         });
     }

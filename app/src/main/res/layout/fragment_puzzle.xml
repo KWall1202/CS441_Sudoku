@@ -6,13 +6,14 @@
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sudokuBoard"
+            android:layout_gravity="center_horizontal"
             android:background="@color/colorAccent"
             >
 
@@ -92,7 +93,7 @@
             android:orientation="horizontal"
             >
             <TableLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/inputButtonGrid"
                 >
@@ -102,8 +103,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/inputFunctionButtons"
+                android:layout_gravity="center"
                 android:orientation="vertical"
                 >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkSolveButton"
+                    android:text="Check"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resetButton"
+                    android:text="Reset"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Move Count:"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/moveCount"
+                    android:layout_gravity="center"
+                    android:text="0"
+                    />
 
             </LinearLayout>
         </LinearLayout>
