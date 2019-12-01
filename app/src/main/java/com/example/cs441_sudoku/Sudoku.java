@@ -6,6 +6,7 @@ public class Sudoku {
     private static int puzzle[][] = new int[9][9];
     private static int answers[][] = new int[9][9];
     private static int moveCount = 0;
+    private static String difficulty = "";
 
     public static void setCellGroups(CellGroupView[][] cellGroups) {
         Sudoku.cellGroups = cellGroups;
@@ -20,6 +21,12 @@ public class Sudoku {
         values = puzz;
         puzzle = puzz;
     }
+
+    public static void setDifficulty(String diff) {
+        difficulty = diff;
+    }
+
+    public static String getDifficulty() { return  difficulty;}
 
     public static void setSolution(int[][] sol) {
         answers = sol;
@@ -39,8 +46,8 @@ public class Sudoku {
         moveCount = 0;
     }
 
-    /*
-    public boolean isSolved() {
+
+    public static boolean isSolved2() {
         // check 3x3 boxes
         for(int i = 0; i < cellGroups.length; i++) {
             for(int j = 0; j < cellGroups[i].length; j++) {
@@ -80,10 +87,12 @@ public class Sudoku {
 
         return true;
 
-    }*/
+    }
 
-    public int isSolved() {
-        boolean solved = true;
+    public static int isSolved() {
+        if(isSolved2()) return moveCount;
+        else return -1;
+        /*boolean solved = true;
         for(int i=0; i < values.length; i++) {
             for(int j=0; j < values.length; j++) {
                 if (values[i][j] != answers[i][j]) {
@@ -91,6 +100,6 @@ public class Sudoku {
                 }
             }
         }
-        return solved ? moveCount : -1;
+        return solved ? moveCount : -1;*/
     }
 }

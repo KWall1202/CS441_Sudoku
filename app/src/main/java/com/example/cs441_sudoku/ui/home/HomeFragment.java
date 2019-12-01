@@ -81,15 +81,17 @@ public class HomeFragment extends Fragment {
                             System.err.println(e.toString());
                         }
                         Sudoku.setPuzzle(puzz);
+                        Sudoku.setDifficulty(difficultySpinner.getSelectedItem().toString().toLowerCase());
                         System.out.println("sending solve request");
                         JsonObjectRequest solveRequest = new JsonObjectRequest(Request.Method.POST, "https://sugoku.herokuapp.com/solve", response, new Response.Listener<JSONObject>() {
                             @Override
-                            public void onResponse(JSONObject response) {
+                            public void onResponse(JSONObject resp) {
                                 int [][] sol = new int[9][9];
                                 System.out.println("got solve response");
+                                System.out.println(resp);
                                 try {
-                                    JSONArray values = response.getJSONArray("board");
-                                    System.out.println(response.toString());
+                                    JSONArray values = resp.getJSONArray("solution");
+                                    System.out.println(resp.toString());
                                     for(int i=0; i < values.length(); i++) {
                                         JSONArray row = values.getJSONArray(i);
                                         for(int j=0; j < row.length(); j++) {

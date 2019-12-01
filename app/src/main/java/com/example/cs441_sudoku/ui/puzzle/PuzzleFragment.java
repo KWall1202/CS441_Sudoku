@@ -1,11 +1,15 @@
 package com.example.cs441_sudoku.ui.puzzle;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -17,9 +21,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cs441_sudoku.R;
 import com.example.cs441_sudoku.Sudoku;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class PuzzleFragment extends Fragment {
@@ -37,10 +48,46 @@ public class PuzzleFragment extends Fragment {
         initBoard(root);
         initButtonGrid(root);
         Button checkButton = root.findViewById(R.id.checkSolveButton);
+        final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // CHECK ONCLICK
+                final int result = Sudoku.isSolved();
+                System.out.println(result);
+                if(result > 0) {
+                    // done!
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Congratulations! You solved the puzzle!");
+
+                    final EditText input = new EditText(getContext());
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    input.setText("Enter your name!");
+                    builder.setView(input);
+                    builder.setPositiveButton("DONE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String addr = "http://cs.binghamton.edu/~pmadden/courses/441score/postscore.php?player=" + input.getText().toString() + "&game=kwallac_sudoku_" + Sudoku.getDifficulty() + "&score=" + result;
+                            addr.replace(" ", "_");
+                            System.out.println(addr);
+                            JsonObjectRequest solveRequest = new JsonObjectRequest(Request.Method.GET, addr, null, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    //TODO: Handle error
+                                }
+                            });
+                            requestQueue.add(solveRequest);
+                        }
+                    });
+                    builder.show();
+
+                } else {
+                    // not done
+                }
             }
         });
 
