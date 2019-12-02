@@ -1,9 +1,19 @@
 # CS441_Sudoku
 
 ## Sudoku Puzzle App
-The goal of this project was to create custom classes and views to act as a sudoku puzzle, and I've made that in a simplest fashion. -1 Represents empty spaces in the puzzle, and cells can be edited by the input buttons on the bottom of the puzzle screen. The other two screens were meant to be a difficulty select/generate new puzzle screen, and a solver on the other screen. I didn't get to implement those because I faced a lot of troubles with getting custom views to render properly, I learned a lot about context along the way though!
+The goal of this project was to create custom classes and views to act as a sudoku puzzle, and I've made that in a simplest fashion. 0 Represents empty spaces in the puzzle, and cells can be edited by the input buttons on the bottom of the puzzle screen. The Home screen contains a spinner where he player can choose the difficulty of the puzzle they want to solve. Pressing the generate button will then GET a puzzle from the heroku sudoku api with the displayed difficulty. The player then can solve the puzzle on the puzzle screen and have their move count posted online when they correctly solve the puzzle.
 
 ## Production Log
+11/30/19: Added feature for posting scores online once a puzzle is completed with a customizable player name. Scores are separated by difficulty
+
+11/25/19: Added buttons to check the solve of a puzzle and to display the score of a player as they progress through the puzzle
+
+11/20/19: Spinner properly integrates with puzzle and displays it properly on the puzzle screen
+
+11/18/19: Finished API calls to get sudokus from online
+
+11/15/19: Began setting up to make API calls to get puzzles from the internet
+
 11/12/19: The puzzle can be edited with buttons at the bottom of the screen, the cell to be edited gets highlighted in yellow
 
 11/11/19: Added buttons that will end up modifying the puzzle
